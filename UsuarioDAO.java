@@ -1,10 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package ModeloDAO;
 
+package ModeloDAO;
 import ModeloVO.RolVO;
 import ModeloVO.UsuarioVO;
 import java.security.MessageDigest;
@@ -26,56 +21,17 @@ import javax.mail.*;
 import javax.mail.internet.*;
 import java.util.Properties;
 import util.PropiedadesCorreo;
-
-
-
-/**
- *
- * @author APRENDIZ
- */
 public class UsuarioDAO extends ConexionBd implements Crud{
-    //Declarar variables y/o objetos
-    ConexionBd conec = new ConexionBd();
-    private Connection conexion;
-    private PreparedStatement puente;
-    private ResultSet mensajero;
-    private boolean operacion = false;
-    private String sql;
-    
+    ConexionBd conec = new ConexionBd();private Connection conexion;private PreparedStatement puente;private ResultSet mensajero;private boolean operacion = false;private String sql;
     private String usuCedula="", usuNombre="", usuApellido="", usuCorreo="", usuDireccion="", usuTelefono="", usuPassword="", usuEstado="", usuRolId="";
-
-    public UsuarioDAO() {
-    }
-    
-    
-
+    public UsuarioDAO() {}
     public UsuarioDAO(UsuarioVO usuVO){
         super();
-        try {
-            
-            // Conectarse a la base de datos
-            conexion = this.obtenerConexion();
-            // Trae los datos del VO al DAO
-            usuCedula = usuVO.getUsuCedula();
-            usuNombre = usuVO.getUsuNombre();
-            usuApellido = usuVO.getUsuApellido();
-            usuTelefono = usuVO.getUsuTelefono();
-            usuCorreo = usuVO.getUsuCorreo();
-            usuDireccion = usuVO.getUsuDireccion();
-            usuPassword = usuVO.getUsuPassword();
-            usuEstado = usuVO.getUsuEstado();
-            usuRolId = usuVO.getUsuRolId();
-            
-        } catch (Exception e) {
-          Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE,null,e);
-            
-        }
-        
-    }
-
+        try { conexion = this.obtenerConexion();usuCedula = usuVO.getUsuCedula();usuNombre = usuVO.getUsuNombre();usuApellido = usuVO.getUsuApellido();usuTelefono = usuVO.getUsuTelefono();usuCorreo = usuVO.getUsuCorreo();usuDireccion = usuVO.getUsuDireccion();usuPassword = usuVO.getUsuPassword();usuEstado = usuVO.getUsuEstado();usuRolId = usuVO.getUsuRolId();
+            } catch (Exception e) {
+          Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE,null,e);}}
     public boolean restablecerContrasena(String cedulaUsuario) {
     try {
-        // Verificar si la cédula existe en la base de datos
         sql = "SELECT UsuCorreo FROM tblUsuario WHERE UsuCedula = ?;";
         puente = conexion.prepareStatement(sql);
         puente.setString(1, cedulaUsuario);
