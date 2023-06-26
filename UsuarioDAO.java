@@ -55,23 +55,9 @@ public class UsuarioDAO extends ConexionBd implements Crud{
     public boolean actualizarRegistro() {
          try {
             sql="UPDATE tblUsuario SET UsuNombre = ?, UsuApellido = ?,UsuTelefono = ?,UsuCorreo = ?,UsuDireccion = ?,UsuPassword = ?,UsuRolId = ? WHERE UsuCedula = ?;";
-             puente = conexion.prepareStatement(sql);puente.setString(1, usuNombre);puente.setString(2, usuApellido);puente.setString(3, usuTelefono);puente.setString(4, usuCorreo);puente.setString(5, usuDireccion);            puente.setString(6, usuPassword);puente.setString(7, usuRolId);puente.setString(8, usuCedula);puente.executeUpdate();
-            operacion = true;
-            
-        } catch (Exception e) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE,null,e);
-
-        } finally{
-            try {
-                 this.cerrarConexion();
-            } catch (Exception e) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE,null,e);
-
-            }
-           
-        }
-        return operacion;
-    }
+             puente = conexion.prepareStatement(sql);puente.setString(1, usuNombre);puente.setString(2, usuApellido);puente.setString(3, usuTelefono);puente.setString(4, usuCorreo);puente.setString(5, usuDireccion);            puente.setString(6, usuPassword);puente.setString(7, usuRolId);puente.setString(8, usuCedula);puente.executeUpdate();operacion = true;        
+        } catch (Exception e) {Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE,null,e);
+        } finally{try { this.cerrarConexion();} catch (Exception e) {Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE,null,e); }}return operacion;}
   public UsuarioVO consultarPorCedula(String cedula){
         UsuarioVO usuVO = null;
         
@@ -203,31 +189,10 @@ public class UsuarioDAO extends ConexionBd implements Crud{
     public boolean actualizarRegistroCliente() {
          try {
             sql="UPDATE tblUsuario SET UsuNombre = ?, UsuApellido = ?,UsuTelefono = ?,UsuCorreo = ?,UsuDireccion = ?,UsuPassword = ? WHERE UsuCedula = ?;";
-            puente = conexion.prepareStatement(sql);
-            puente.setString(1, usuNombre);
-            puente.setString(2, usuApellido);
-            puente.setString(3, usuTelefono);
-            puente.setString(4, usuCorreo);
-            puente.setString(5, usuDireccion);
-             puente.setString(6, usuPassword);
-            puente.setString(7, usuCedula);
-            puente.executeUpdate();
-            operacion = true;
-            
-            String mensaje = "Estimado/a " + usuNombre+ ",\n\n"
-                + "Se ha realizado una actualización de sus datos en nuestro sistema.\n"
-                + "Saludos,\n"
-                + "Equipo de Administración";
-
-        String asunto = "Actualizacion de datos exitosa";
-        String usuario = "techn0.check0ut@gmail.com"; // Cambiar por tu dirección de correo electrónico
-        String destino = usuCorreo;
-        String servidor ="smtp.gmail.com";
-        String puerto="587";
-        String clave="dhyostnzjleivjci";
-
-        PropiedadesCorreo.envioCorreo(servidor, puerto, usuario, clave, destino, asunto, mensaje);
-            
+            puente = conexion.prepareStatement(sql);puente.setString(1, usuNombre);puente.setString(2, usuApellido);puente.setString(3, usuTelefono); puente.setString(4, usuCorreo);puente.setString(5, usuDireccion); puente.setString(6, usuPassword);puente.setString(7, usuCedula);puente.executeUpdate();operacion = true;    
+            String mensaje = "Estimado/a " + usuNombre+ ",\n\n"+ "Se ha realizado una actualización de sus datos en nuestro sistema.\n"+ "Saludos,\n"+ "Equipo de Administración";
+        String asunto = "Actualizacion de datos exitosa";String usuario = "techn0.check0ut@gmail.com"; // Cambiar por tu dirección de correo electrónicoString destino = usuCorreo;String servidor ="smtp.gmail.com";String puerto="587";String clave="dhyostnzjleivjci";
+        PropiedadesCorreo.envioCorreo(servidor, puerto, usuario, clave, destino, asunto, mensaje);      
         } catch (Exception e) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE,null,e);
 
