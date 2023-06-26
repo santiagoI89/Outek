@@ -1,26 +1,4 @@
-
-package ModeloDAO;
-import ModeloVO.RolVO;
-import ModeloVO.UsuarioVO;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import util.ConexionBd;
-import util.Crud;
-import javax.mail.*;
-import javax.mail.internet.*;
-import java.util.Properties;
-import util.PropiedadesCorreo;
+package ModeloDAO;import ModeloVO.RolVO;import ModeloVO.UsuarioVO;import java.security.MessageDigest;import java.security.NoSuchAlgorithmException;import java.security.SecureRandom;import java.sql.Connection;import java.sql.DriverManager;import java.sql.PreparedStatement;import java.sql.ResultSet;import java.sql.SQLException;import java.util.ArrayList;import java.util.List;import java.util.logging.Level;import java.util.logging.Logger;import javax.swing.JOptionPane;import util.ConexionBd;import util.Crud;import javax.mail.*;import javax.mail.internet.*;import java.util.Properties;import util.PropiedadesCorreo;
 public class UsuarioDAO extends ConexionBd implements Crud{
     ConexionBd conec = new ConexionBd();private Connection conexion;private PreparedStatement puente;private ResultSet mensajero;private boolean operacion = false;private String sql;
     private String usuCedula="", usuNombre="", usuApellido="", usuCorreo="", usuDireccion="", usuTelefono="", usuPassword="", usuEstado="", usuRolId="";
