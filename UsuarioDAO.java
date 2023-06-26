@@ -10,58 +10,20 @@ public class UsuarioDAO extends ConexionBd implements Crud{
           Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE,null,e);}}
     public boolean restablecerContrasena(String cedulaUsuario) {
     try {
-        sql = "SELECT UsuCorreo FROM tblUsuario WHERE UsuCedula = ?;";
-        puente = conexion.prepareStatement(sql);
-        puente.setString(1, cedulaUsuario);
-        mensajero = puente.executeQuery();
-
+        sql = "SELECT UsuCorreo FROM tblUsuario WHERE UsuCedula = ?;";puente = conexion.prepareStatement(sql);puente.setString(1, cedulaUsuario);mensajero = puente.executeQuery();
         if (mensajero.next()) {
-            // La cédula existe en la base de datos, proceder con el restablecimiento de contraseña
-            String contrasenaGenerada = generarToken(10);
-            sql = "UPDATE tblUsuario SET UsuPassword = ? WHERE UsuCedula = ?;";
-            puente = conexion.prepareStatement(sql);
-            puente.setString(1, contrasenaGenerada);
-            puente.setString(2, cedulaUsuario);
-            puente.executeUpdate();
-            operacion = true;
-
-            // Obtener el correo asociado a la cédula
-            String correoUsuario = mensajero.getString("UsuCorreo");
-
-            // Envío del correo con la nueva contraseña generada
-            String mensaje = "Estimado/a Usuario,\n\n"
-                + "Se ha restablecido su contraseña en nuestro sistema.\n"
-                + "A continuación se muestra su nueva contraseña generada automáticamente:\n\n"
-                + contrasenaGenerada + "\n\n"
-                + "Le recomendamos cambiar su contraseña una vez que haya iniciado sesión.\n\n"
-                + "Saludos,\n"
-                + "Equipo de Administración";
-
-            String asunto = "Restablecimiento de contraseña exitoso";
-            String usuario = "techn0.check0ut@gmail.com"; // Cambiar por tu dirección de correo electrónico
-            String destino = correoUsuario;
-            String servidor = "smtp.gmail.com";
-            String puerto = "587";
-            String clave = "dhyostnzjleivjci";
-
+            String contrasenaGenerada = generarToken(10);sql = "UPDATE tblUsuario SET UsuPassword = ? WHERE UsuCedula = ?;";
+            puente = conexion.prepareStatement(sql);puente.setString(1, contrasenaGenerada);puente.setString(2, cedulaUsuario);puente.executeUpdate();operacion = true;String correoUsuario = mensajero.getString("UsuCorreo");
+            String mensaje = "Estimado/a Usuario,\n\n"+ "Se ha restablecido su contraseña en nuestro sistema.\n"+ "A continuación se muestra su nueva contraseña generada automáticamente:\n\n"
+                + contrasenaGenerada + "\n\n"+ "Le recomendamos cambiar su contraseña una vez que haya iniciado sesión.\n\n"+ "Saludos,\n"+ "Equipo de Administración";
+            String asunto = "Restablecimiento de contraseña exitoso"; String usuario = "techn0.check0ut@gmail.com"; // Cambiar por tu dirección de correo electrónicoString destino = correoUsuario;String servidor = "smtp.gmail.com";String puerto = "587";tring clave = "dhyostnzjleivjci";
             PropiedadesCorreo.envioCorreo(servidor, puerto, usuario, clave, destino, asunto, mensaje);
-        } else {
-            // La cédula no existe en la base de datos
-            operacion = false;
-        }
-    } catch (Exception e) {
-        Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+        } else {operacion = false;}
+    } catch (Exception e) {Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
     } finally {
-        try {
-            this.cerrarConexion();
-        } catch (Exception e) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
-        }
-    }
-    return operacion;
-}
-
-    
+        try {this.cerrarConexion();
+        } catch (Exception e) {Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+        }}return operacion;}    
     @Override
    public boolean agregarRegistro() {
     try {
