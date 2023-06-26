@@ -29,49 +29,15 @@ public class UsuarioDAO extends ConexionBd implements Crud{
     try {
         String contrasenaGenerada = generarToken(10); // Longitud del token deseada
         sql = "INSERT INTO tblusuario (UsuCedula, UsuNombre, UsuApellido, UsuTelefono, UsuCorreo, UsuDireccion, usuPassword, usuRolId) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
-        puente = conexion.prepareStatement(sql);
-        puente.setString(1, usuCedula);
-        puente.setString(2, usuNombre);
-        puente.setString(3, usuApellido);
-        puente.setString(4, usuTelefono);
-        puente.setString(5, usuCorreo);
-        puente.setString(6, usuDireccion);
-        puente.setString(7, contrasenaGenerada);
-        puente.setString(8, usuRolId);
-        puente.executeUpdate();
-        operacion = true;
-
-        // Envío de correo electrónico
-        String mensaje = "Estimado/a " + usuNombre+ ",\n\n"
-                + "Se ha creado una cuenta para usted en nuestro sistema.\n"
-                + "A continuación se muestra su contraseña generada automáticamente:\n\n"
-                + contrasenaGenerada + "\n\n"
-                + "Le recomendamos cambiar su contraseña una vez que haya iniciado sesión\n\n"
-                + "Su usuario es el documento ingresado al momento de registrarse.\n\n"
-                + "Saludos,\n"
-                + "Equipo de Administración";
-
-        String asunto = "Creación de cuenta exitosa";
-        String usuario = "techn0.check0ut@gmail.com"; // Cambiar por tu dirección de correo electrónico
-        String destino = usuCorreo;
-        String servidor ="smtp.gmail.com";
-        String puerto="587";
-        String clave="dhyostnzjleivjci";
-
+        puente = conexion.prepareStatement(sql);puente.setString(1, usuCedula);puente.setString(2, usuNombre);puente.setString(3, usuApellido);puente.setString(4, usuTelefono);puente.setString(5, usuCorreo);puente.setString(6, usuDireccion);puente.setString(7, contrasenaGenerada);puente.setString(8, usuRolId);
+        puente.executeUpdate();operacion = true;
+        String mensaje = "Estimado/a " + usuNombre+ ",\n\n"+ "Se ha creado una cuenta para usted en nuestro sistema.\n"+ "A continuación se muestra su contraseña generada automáticamente:\n\n"+ contrasenaGenerada + "\n\n" + "Le recomendamos cambiar su contraseña una vez que haya iniciado sesión\n\n" + "Su usuario es el documento ingresado al momento de registrarse.\n\n" + "Saludos,\n"+ "Equipo de Administración";
+        String asunto = "Creación de cuenta exitosa"; String usuario = "techn0.check0ut@gmail.com"; // Cambiar por tu dirección de correo electrónicoString destino = usuCorreo;String servidor ="smtp.gmail.com";String puerto="587";String clave="dhyostnzjleivjci";
         PropiedadesCorreo.envioCorreo(servidor, puerto, usuario, clave, destino, asunto, mensaje);
-
-    } catch (Exception e) {
-        Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
-    } finally {
-        try {
-            this.cerrarConexion();
-        } catch (Exception e) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
-        }
-    }
-    return operacion;
-}
-
+    } catch (Exception e) { Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+    } finally {try {this.cerrarConexion();
+        } catch (Exception e) {Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+        }}return operacion;}
     private String generarToken(int longitud) {
         String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         SecureRandom random = new SecureRandom();
@@ -89,16 +55,7 @@ public class UsuarioDAO extends ConexionBd implements Crud{
     public boolean actualizarRegistro() {
          try {
             sql="UPDATE tblUsuario SET UsuNombre = ?, UsuApellido = ?,UsuTelefono = ?,UsuCorreo = ?,UsuDireccion = ?,UsuPassword = ?,UsuRolId = ? WHERE UsuCedula = ?;";
-            puente = conexion.prepareStatement(sql);
-            puente.setString(1, usuNombre);
-            puente.setString(2, usuApellido);
-            puente.setString(3, usuTelefono);
-            puente.setString(4, usuCorreo);
-            puente.setString(5, usuDireccion);            
-            puente.setString(6, usuPassword);
-            puente.setString(7, usuRolId);
-            puente.setString(8, usuCedula);
-            puente.executeUpdate();
+             puente = conexion.prepareStatement(sql);puente.setString(1, usuNombre);puente.setString(2, usuApellido);puente.setString(3, usuTelefono);puente.setString(4, usuCorreo);puente.setString(5, usuDireccion);            puente.setString(6, usuPassword);puente.setString(7, usuRolId);puente.setString(8, usuCedula);puente.executeUpdate();
             operacion = true;
             
         } catch (Exception e) {
