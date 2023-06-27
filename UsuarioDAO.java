@@ -115,7 +115,7 @@ public class UsuarioDAO extends ConexionBd implements Crud{
     {    
          try 
          {
-             UsuarioVO usuVO= new UsuarioVO();
+             
             conexion = this.obtenerConexion();
             sql = "UPDATE tblUsuario SET UsuEstado = 'Inactivo' WHERE UsuCedula = ?;";
             puente = conexion.prepareStatement(sql);
@@ -169,8 +169,7 @@ public class UsuarioDAO extends ConexionBd implements Crud{
         mensajero = puente.executeQuery();
         while(mensajero.next())
         {
-            usuVO= new UsuarioVO(mensajero.getString(1), mensajero.getString(2),mensajero.getString(3), mensajero.getString(4), 
-                        mensajero.getString(5), mensajero.getString(6), mensajero.getString(7),mensajero.getString(8), mensajero.getString(9));
+            
         }
       }
        catch (Exception e) 
